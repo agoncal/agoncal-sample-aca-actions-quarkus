@@ -1,5 +1,11 @@
 # agoncal-sample-aca-actions-quarkus
 
+Make sure you have Azure CLI installed. If it already is installed, make sure you update it to the latest version:
+
+```shell
+az upgrade
+```
+
 Log in to Azure and add the Container Apps extension
 
 ```shell
@@ -25,16 +31,26 @@ az group create \
   --tags system="$TAG"
 ```
 
+Service principal client ID, secret and tenant ID
+
+```shell
+az ad sp create-for-rbac --name rbac-aca-actions-quarkus \
+  --role contributor \
+  --scopes /subscriptions/{{subscription}}/resourceGroups/$RESOURCE_GROUP
+  --sdk-auth
+
+
 Create a GitHub action
 
 ```shell
 az containerapp github-action add --name agoncal-sample-aca-actions-quarkus \
                                   --repo-url https://github.com/agoncal/agoncal-sample-aca-actions-quarkus \
-                                  --resource-group "$RESOURCE_GROUP" 
-                                  [--branch]
+                                  --resource-group "$RESOURCE_GROUP" \
+                                  --login-with-github
+
+[--branch]
                                   [--context-path]
                                   [--image]
-                                  [--login-with-github]
                                   [--registry-password]
                                   [--registry-url]
                                   [--registry-username]
