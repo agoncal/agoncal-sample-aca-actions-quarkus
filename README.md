@@ -12,6 +12,7 @@ Log in to Azure and add the Container Apps extension
 az login
 
 az extension add --name containerapp --upgrade
+az extension add --name deploy-to-azure --upgrade
 ```
 
 Set the environment variables
