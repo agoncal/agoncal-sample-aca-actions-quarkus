@@ -20,10 +20,11 @@ Set the environment variables
 ```shell
 RESOURCE_GROUP="rg-aca-actions-quarkus"
 LOCATION="eastus2"
-LOG_ANALYTICS_WORKSPACE="log-aca-actions-quarkus"
+CONTAINERAPPS_ENV="env-aca-actions-quarkus"
+TAG="aca-actions-quarkus"
+LOG_ANALYTICS_WORKSPACE="workspace-aca-actions-quarkus"
 RBAC="rbac-aca-actions-quarkus"
 REGISTRY="registryacaactionsquarkus"
-TAG="aca-actions-quarkus"
 ```
 
 Get the subscription ID
@@ -123,8 +124,45 @@ rapp github-action add \
 
 ## Azure Container Apps UP
 
+Create a Quarkus project that you push to GitHub
+
+```shell
+https://code.quarkus.io/?g=io.quarkus.workshop.superheroes&a=villains-app&e=smallrye-openapi&e=resteasy-reactive&e=hibernate-orm-panache&e=hibernate-validator&e=jdbc-postgresql&e=smallrye-health
+```
+
+```shell
+az containerapp up \
+  --name villains-app \
+  --environment "$CONTAINERAPPS_ENV" \
+  --repo https://github.com/agoncal/villains-app \
+  --resource-group "$RESOURCE_GROUP" \
+  --location "$LOCATION" \
+  --ingress external \
+  --context-path src/main/docker \
+  --logs-workspace-id "$LOG_ANALYTICS_WORKSPACE"
+
+                   [--branch]
+                   [--browse]
+                   [--env-vars]
+                   [--image]
+                   [--ingress {external, internal}]
+                   [--logs-workspace-id]
+                   [--logs-workspace-key]
+                   [--registry-password]
+                   [--registry-server]
+                   [--registry-username]
+                   [--service-principal-client-id]
+                   [--service-principal-client-secret]
+                   [--service-principal-tenant-id]
+                   [--source]
+                   [--target-port]
+                   [--token]
+```
+
 Get the GitHub token
 
 ```shell
 gh auth status --show-token
 ```
+
+Set the `GH_TOKEN` variable with the value of the GitHub token
