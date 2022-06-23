@@ -22,6 +22,16 @@ LOCATION="eastus2"
 TAG="aca-actions-quarkus"
 ```
 
+Get the subscription ID
+
+```shell
+SUBSCRIPTION_ID=`az account show \
+  --query id \
+  --output tsv`
+  
+echo $SUBSCRIPTION_ID  
+```
+
 Create a Resource Group
 
 ```shell
@@ -36,7 +46,7 @@ Service principal client ID, secret and tenant ID
 ```shell
 az ad sp create-for-rbac --name rbac-aca-actions-quarkus \
   --role contributor \
-  --scopes /subscriptions/{{subscription}}/resourceGroups/$RESOURCE_GROUP
+  --scopes /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP
   --sdk-auth
 
 
@@ -46,7 +56,10 @@ Create a GitHub action
 az containerapp github-action add --name agoncal-sample-aca-actions-quarkus \
                                   --repo-url https://github.com/agoncal/agoncal-sample-aca-actions-quarkus \
                                   --resource-group "$RESOURCE_GROUP" \
-                                  --login-with-github
+                                  --login-with-github \
+                                  --service-principal-client-id \
+                                  --service-principal-client-secret \
+                                  --service-principal-tenant-id 
 
 [--branch]
                                   [--context-path]
@@ -54,8 +67,5 @@ az containerapp github-action add --name agoncal-sample-aca-actions-quarkus \
                                   [--registry-password]
                                   [--registry-url]
                                   [--registry-username]
-                                  [--service-principal-client-id]
-                                  [--service-principal-client-secret]
-                                  [--service-principal-tenant-id]
                                   [--token]
 ```
