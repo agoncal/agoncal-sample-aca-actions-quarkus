@@ -109,7 +109,8 @@ az ad sp create-for-rbac \
 Create a GitHub action
 
 ```shell
-az containerapp github-action add \
+az containe```
+rapp github-action add \
   --name agoncal-sample-aca-actions-quarkus \
   --repo-url https://github.com/agoncal/agoncal-sample-aca-actions-quarkus \
   --resource-group "$RESOURCE_GROUP" \
@@ -118,4 +119,12 @@ az containerapp github-action add \
   --service-principal-client-secret {{client-secret}} \
   --service-principal-tenant-id {{tenant-id}} \
   --registry-url $REGISTRY_URL
+```
+
+## Azure Container Apps UP
+
+Get the GitHub token
+
+```shell
+gh auth status --show-token
 ```
