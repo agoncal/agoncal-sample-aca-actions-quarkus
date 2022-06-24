@@ -13,6 +13,7 @@ az login
 
 az extension add --name containerapp --upgrade
 az extension add --name deploy-to-azure --upgrade
+az extension add --name containerapp-compose --upgrade
 ```
 
 Set the environment variables
@@ -165,3 +166,19 @@ gh auth status --show-token
 ```
 
 Set the `GH_TOKEN` variable with the value of the GitHub token
+
+## Compose
+
+```shell
+az containerapp compose create \
+  --environment "$CONTAINERAPPS_ENV" \
+  --resource-group "$RESOURCE_GROUP" \
+  --location "$LOCATION" \
+  --tags system="$TAG" \
+  --compose-file-path deploy/docker-compose/java11.yml
+  
+                               [--registry-password]
+                               [--registry-server]
+                               [--registry-username]
+                               [--transport]
+```
