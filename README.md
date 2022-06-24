@@ -138,6 +138,7 @@ az containerapp up \
   --resource-group "$RESOURCE_GROUP" \
   --location "$LOCATION" \
   --ingress external \
+  --target-port 8080 \
   --context-path src/main/docker \
   --logs-workspace-id "$LOG_ANALYTICS_WORKSPACE"
 
@@ -145,7 +146,6 @@ az containerapp up \
                    [--browse]
                    [--env-vars]
                    [--image]
-                   [--ingress {external, internal}]
                    [--logs-workspace-id]
                    [--logs-workspace-key]
                    [--registry-password]
@@ -155,7 +155,6 @@ az containerapp up \
                    [--service-principal-client-secret]
                    [--service-principal-tenant-id]
                    [--source]
-                   [--target-port]
                    [--token]
 ```
 
