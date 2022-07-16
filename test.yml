@@ -1,0 +1,9 @@
+version: "3"
+services:
+
+  hello-world-one:
+    image: nginxdemos/nginx-hello
+    container_name: hello-world-one
+    ports:
+      - "8081:8080"
+    restart: on-failure
